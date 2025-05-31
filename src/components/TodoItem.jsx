@@ -1,24 +1,37 @@
 import { TodoDispatchContext } from "../App";
-import "./TodoItem.css"
 import { memo, useContext } from "react";
 
-const TodoItem = ({id, isDone, content, date}) => {
-    const { onUpdate, onDelete } = useContext(TodoDispatchContext);
-    const onChangeCheckbox = () => {
-        onUpdate(id);
-    }
+const TodoItem = ({ id, isDone, content, date }) => {
+  const { onUpdate, onDelete } = useContext(TodoDispatchContext);
 
-    const onClickDeleteButton = () => {
-        onDelete(id);
-    }
+  const onChangeCheckbox = () => {
+    onUpdate(id);
+  };
 
-    return <div className="TodoItem">
-                {/* button이 아니기 때문에 onClick()이 아니라 onChange() */}
-                <input onChange={onChangeCheckbox} checked={isDone} type="checkbox" />
-                <div className="content">{content}</div>
-                <div className="date">{new Date(date).toLocaleDateString()}</div>
-                <button onClick={onClickDeleteButton}>삭제</button>
-            </div>
-}
+  const onClickDeleteButton = () => {
+    onDelete(id);
+  };
+
+  return (
+    <div className="flex items-center gap-5 pb-5 border-b border-gray-200">
+      <input
+        onChange={onChangeCheckbox}
+        checked={isDone}
+        type="checkbox"
+        className="w-5 h-5"
+      />
+      <div className="flex-1">{content}</div>
+      <div className="text-sm text-gray-500">
+        {new Date(date).toLocaleDateString()}
+      </div>
+      <button
+        onClick={onClickDeleteButton}
+        className="text-sm text-gray-500 px-2 py-1 rounded hover:bg-gray-100 transition"
+      >
+        삭제
+      </button>
+    </div>
+  );
+};
 
 export default memo(TodoItem);
