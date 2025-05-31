@@ -1,8 +1,8 @@
-import { TodoDispatchContext } from "../App";
-import { memo, useContext } from "react";
+import { useTodoActions } from "../hooks/useTodoStore";
+import type { Todo } from "../types/todo";
 
-const TodoItem = ({ id, isDone, content, date }) => {
-  const { onUpdate, onDelete } = useContext(TodoDispatchContext);
+const TodoItem = ({ id, isDone, content, date }: Todo) => {
+  const { onUpdate, onDelete } = useTodoActions();
 
   const onChangeCheckbox = () => {
     onUpdate(id);
@@ -26,7 +26,7 @@ const TodoItem = ({ id, isDone, content, date }) => {
       </div>
       <button
         onClick={onClickDeleteButton}
-        className="text-sm text-gray-500 px-2 py-1 rounded hover:bg-gray-100 transition"
+        className="text-sm text-gray-500 px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 transition cursor-pointer"
       >
         삭제
       </button>
@@ -34,4 +34,4 @@ const TodoItem = ({ id, isDone, content, date }) => {
   );
 };
 
-export default memo(TodoItem);
+export default TodoItem;

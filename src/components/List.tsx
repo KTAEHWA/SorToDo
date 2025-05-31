@@ -1,38 +1,24 @@
-import { TodoStateContext } from "../App";
 import TodoItem from "./TodoItem";
-import { useState, useMemo, useContext } from "react";
+import { useState, type ChangeEvent } from "react";
+import { useTodoInfo } from "../hooks/useTodoStore";
 
 const List = () => {
-  const todos = useContext(TodoStateContext);
+  const { todoItems } = useTodoInfo();
   const [search, setSearch] = useState("");
 
-  const onChangeSearch = (e) => {
+  const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  const getFilteredData = () => {
-    if (search === "") {
-      return todos;
-    }
-    return todos.filter((todo) =>
-      todo.content.toLowerCase().includes(search.toLowerCase())
-    );
-  };
+  const filteredTodos = search.trim()
+    ? todoItems.filter((todo) =>
+        todo.content.toLowerCase().includes(search.toLowerCase())
+      )
+    : todoItems;
 
-  const filteredTodos = getFilteredData();
-
-  const { totalCount, doneCount, notDoneCount } = useMemo(() => {
-    console.log("getAnalyzedData 호출!");
-    const totalCount = todos.length;
-    const doneCount = todos.filter((todo) => todo.isDone).length;
-    const notDoneCount = totalCount - doneCount;
-
-    return {
-      totalCount,
-      doneCount,
-      notDoneCount,
-    };
-  }, [todos]);
+  const totalCount = todoItems.length;
+  const doneCount = todoItems.filter((todo) => todo.isDone).length;
+  const notDoneCount = totalCount - doneCount;
 
   return (
     <div className="flex flex-col gap-7">
