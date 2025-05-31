@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 const Header = () => {
   const today = new Date();
   const year = today.getFullYear();
@@ -16,4 +14,4 @@ const Header = () => {
   );
 };
 
-export default memo(Header);
+export default Header;
