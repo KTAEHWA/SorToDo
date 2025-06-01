@@ -8,7 +8,6 @@
 
 - JavaScript → TypeScript로 전체 마이그레이션
 - CSS → TailwindCSS로 UI 리팩토링
-- 소셜 로그인 추가
 - Todo 그룹화 기능 (사용자 정의 그룹별 분류)
 - 전역 상태 관리를 통한 기능 구조화
 
